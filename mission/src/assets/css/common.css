@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+html, body {
+  --paddingSide: 20px;
+  width: 100%;
+  max-width: 440px;
+  min-width: 320px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: bold;
+}
