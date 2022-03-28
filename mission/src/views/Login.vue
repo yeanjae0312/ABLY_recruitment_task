@@ -54,10 +54,10 @@ export default {
         this.axios.post(`${HOST}/api/login`, JSON.stringify(saveData), { headers: { 'Content-Type': 'application/json' } })
           .then((res) => {
             if (res.status === 200) {
-              // this.$store.commit('login', res.data);
-              this.$router.push({ name: 'Login' });
+              this.$store.commit('login', res.data);
               // eslint-disable-next-line no-alert
               alert('회원정보가 맞습니다.');
+              this.$router.push({ name: '/' });
             }
           }).catch((error) => {
             if (error.response.status === 404) {
