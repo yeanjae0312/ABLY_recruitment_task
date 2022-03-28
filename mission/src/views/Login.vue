@@ -13,7 +13,9 @@
       </label>
       <div class="login-btn">
         <button @click="doLogin" class="login-btn" data-test="login-btn">로그인</button>
-        <button class="login-btn" data-test="pw-btn">비밀번호 재설정</button>
+        <router-link :to="{ name: 'AuthRequest' }">
+          <button class="login-btn" data-test="pw-btn">비밀번호 재설정</button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -57,7 +59,7 @@ export default {
               this.$store.commit('login', res.data);
               // eslint-disable-next-line no-alert
               alert('회원정보가 맞습니다.');
-              this.$router.push({ name: '/' });
+              this.$router.push({ name: 'UserInfo' });
             }
           }).catch((error) => {
             if (error.response.status === 404) {

@@ -6,6 +6,16 @@ const routes = [
     name: 'Login',
     component: () => import('@/views/Login.vue'),
   },
+  {
+    path: '/userinfo',
+    name: 'UserInfo',
+    component: () => import('@/views/UserInfo.vue'),
+  },
+  {
+    path: '/authRequest',
+    name: 'AuthRequest',
+    component: () => import('@/views/Password/AuthRequest.vue'),
+  },
 ];
 
 const router = createRouter({
