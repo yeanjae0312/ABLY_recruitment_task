@@ -1,12 +1,8 @@
 import { createStore } from 'vuex';
+import LoginStorage from '@/store/modules/Login';
 
 export default createStore({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
+    LoginStorage,
   },
 });
