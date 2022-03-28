@@ -3,13 +3,13 @@
     <p class="title">회원 정보 조회</p>
     <div class="info-wrap">
       <p class="img">
-        <img src="@/assets/sample-img.jpg" alt="">
+        <img src="@/assets/sample-img.jpg" alt="" data-test="info-profile">
       </p>
-      <p class="name"><b>name:</b> 이연재</p>
-      <p class="email"><b>email:</b> 0000@0000.000</p>
+      <p class="name" data-test="info-name"><b>name:</b> 이연재</p>
+      <p class="email" data-test="info-email"><b>email:</b> 0000@0000.000</p>
     </div>
     <div class="common-btn-wrap">
-      <button class="common-btn">로그아웃</button>
+      <button class="common-btn" data-test="logout-btn">로그아웃</button>
     </div>
   </div>
 </template>
