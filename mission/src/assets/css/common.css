@@ -19,3 +19,22 @@ html, body {
   font-size: 22px;
   font-weight: bold;
 }
+
+.common-btn-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.common-btn-wrap .common-btn {
+  border: none;
+  background-color: #fe3152;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}

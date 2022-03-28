@@ -11,10 +11,10 @@
         <span>Password : </span>
         <input type="password" ref="inputPw" data-test="login-text-pw" v-model="inputPw" required>
       </label>
-      <div class="login-btn">
-        <button @click="doLogin" class="login-btn" data-test="login-btn">로그인</button>
+      <div class="common-btn-wrap">
+        <button class="common-btn" @click="doLogin" data-test="login-btn">로그인</button>
         <router-link :to="{ name: 'AuthRequest' }">
-          <button class="login-btn" data-test="pw-btn">비밀번호 재설정</button>
+          <button class="common-btn" data-test="pw-btn">비밀번호 재설정</button>
         </router-link>
       </div>
     </div>
@@ -114,24 +114,5 @@ export default {
 
 .login-form .label input:focus {
   outline-color: #fe3152;
-}
-
-.login-form .login-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.login-form .login-btn button {
-  border: none;
-  background-color: #fe3152;
-  padding: 8px 12px;
-  border-radius: 14px;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
 }
 </style>
