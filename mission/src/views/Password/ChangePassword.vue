@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'changePassword',
   components: {
@@ -31,9 +33,32 @@ export default {
   mounted() {
     this.$refs.inputPw.focus();
   },
+  computed: {
+    ...mapState('AuthStorage', ['confirmToken', 'authEmail']),
+  },
   methods: {
     changePw() {
+      const saveData = {};
+      saveData.email = this.authEmail;
+      saveData.confirmToken = this.confirmToken;
+      saveData.newPassword = this.inputPw;
+      saveData.newPasswordConfirm = this.inputConfirmPw;
 
+      try {
+        this.axios.patch('/api/reset-password', saveData, { headers: { 'Content-Type': 'application/json' } })
+          .then((res) => {
+            if (res.status === 200) {
+              // eslint-disable-next-line no-alert
+              alert('비밀번호가 정상적으로 변경되었습니다.');
+            }
+          }).catch((error) => {
+            console.log(error);
+            // eslint-disable-next-line no-alert
+            alert('비밀번호가 같지 않거나 입력한 내용이 없어요.');
+          });
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
