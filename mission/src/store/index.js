@@ -10,6 +10,6 @@ export default createStore({
   },
 
   plugins: [createPersistedState({
-    paths: ['LoginStorage'],
+    paths: ['LoginStorage', 'AuthStorage'],
   })],
 });
