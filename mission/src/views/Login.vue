@@ -50,13 +50,12 @@ export default {
         this.$refs.inputPw.focus();
       }
 
-      const HOST = 'https://ably-frontend-assignment-server.vercel.app';
       const saveData = {};
       saveData.email = this.inputEmail;
       saveData.password = this.inputPw;
 
       try {
-        this.axios.post(`${HOST}/api/login`, JSON.stringify(saveData), { headers: { 'Content-Type': 'application/json' } })
+        this.axios.post('/api/login', JSON.stringify(saveData), { headers: { 'Content-Type': 'application/json' } })
           .then((res) => {
             if (res.status === 200) {
               this.login(res.data);

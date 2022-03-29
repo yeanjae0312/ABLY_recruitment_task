@@ -11,5 +11,8 @@ import App from './App.vue';
 library.add(fas, far);
 
 const app = createApp(App);
+
 app.config.globalProperties.axios = axios;
 app.component('font-awesome-icon', FontAwesomeIcon).use(store).use(router).mount('#app');
+
+axios.defaults.baseURL = 'https://ably-frontend-assignment-server.vercel.app';

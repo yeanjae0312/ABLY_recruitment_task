@@ -44,11 +44,10 @@ export default {
   methods: {
     ...mapMutations('LoginStorage', ['loginCheck', 'logout']),
     async getUserInfo() {
-      const HOST = 'https://ably-frontend-assignment-server.vercel.app';
       const JWT = this.accessToken;
 
       try {
-        const res = await this.axios.get(`${HOST}/api/user`, { headers: { Authorization: `Bearer ${JWT}` } });
+        const res = await this.axios.get('/api/user', { headers: { Authorization: `Bearer ${JWT}` } });
 
         if (res.status === 200) {
           this.userProfile = res.data.profileImage;
@@ -71,11 +70,10 @@ export default {
       }
     },
     doLogout() {
-      const HOST = 'https://ably-frontend-assignment-server.vercel.app';
       const JWT = this.accessToken;
 
       try {
-        this.axios.post(`${HOST}/api/logout`, this.accessToken, { headers: { Authorization: `Bearer ${JWT}` } })
+        this.axios.post('/api/logout', this.accessToken, { headers: { Authorization: `Bearer ${JWT}` } })
           .then((res) => {
             if (res.status === 200) {
               this.logout();
