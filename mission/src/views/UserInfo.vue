@@ -2,11 +2,14 @@
   <div class="userInfo">
     <p class="title">회원 정보 조회</p>
     <div class="info-wrap">
-      <p class="img">
-        <img src="@/assets/sample-img.jpg" alt="" data-test="info-profile">
-      </p>
-      <p class="name" data-test="info-name"><b>name:</b> 이연재</p>
-      <p class="email" data-test="info-email"><b>email:</b> 0000@0000.000</p>
+      <div v-if="!isLoading">
+        <p class="img">
+          <img :src="userProfile" alt="" data-test="info-profile">
+        </p>
+        <p class="name" data-test="info-name"><b>name:</b> {{ userName }}</p>
+        <p class="email" data-test="info-email"><b>email:</b> {{ userEmail }}</p>
+      </div>
+      <span v-if="isLoading" class="loading">Loading...</span>
     </div>
     <div class="common-btn-wrap">
       <button class="common-btn" data-test="logout-btn">로그아웃</button>
@@ -15,9 +18,50 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
+
 export default {
   name: 'UserInfo',
   components: {
+  },
+  data() {
+    return {
+      userProfile: '',
+      userName: '',
+      userEmail: '',
+      isLoading: true,
+    };
+  },
+  mounted() {
+    this.loginCheck();
+  },
+  created() {
+    this.getUserInfo();
+  },
+  computed: {
+    ...mapState('LoginStorage', ['accessToken']),
+  },
+  methods: {
+    ...mapMutations('LoginStorage', ['loginCheck']),
+    async getUserInfo() {
+      const HOST = 'https://ably-frontend-assignment-server.vercel.app';
+      const JWT = this.accessToken;
+
+      try {
+        const res = await this.axios.get(`${HOST}/api/user`, { headers: { Authorization: `Bearer ${JWT}` } });
+
+        if (res.status === 200) {
+          this.userProfile = res.data.profileImage;
+          this.userName = res.data.name;
+          this.userEmail = res.data.email;
+        }
+
+        this.isLoading = false;
+      } catch (error) {
+        console.log(error);
+        this.isLoading = false;
+      }
+    },
   },
 };
 </script>
@@ -30,6 +74,7 @@ export default {
 }
 
 .info-wrap {
+  position: relative;
   margin: 50px 0 30px;
   padding: 30px 10px;
   box-sizing: border-box;
@@ -53,5 +98,12 @@ export default {
 
 .info-wrap p:last-child {
   margin-bottom: 0;
+}
+
+.info-wrap .loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>
