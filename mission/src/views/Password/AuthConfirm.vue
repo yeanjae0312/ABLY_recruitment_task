@@ -12,14 +12,14 @@
         <p class="area-count">{{ minuates}} : {{ seconds }}</p>
       </label>
       <div class="common-btn-wrap">
-        <button class="common-btn" @click="doLogin">다음</button>
+        <button class="common-btn" @click="enterNext">다음</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   name: 'AuthConfirm',
@@ -41,9 +41,10 @@ export default {
     this.startTimer();
   },
   computed: {
-    ...mapState('AuthStorage', ['countTime']),
+    ...mapState('AuthStorage', ['countTime', 'issueToken', 'authEmail']),
   },
   methods: {
+    ...mapMutations('AuthStorage', ['storedConfirmToken']),
     startTimer() {
       this.totalTime = this.countTime / 1000 - 1;
 
@@ -62,6 +63,27 @@ export default {
       } else {
         this.totalTime = 0;
         clearInterval(this.timer);
+      }
+    },
+    enterNext() {
+      const saveData = {};
+      saveData.email = this.authEmail;
+      saveData.authCode = this.inputCode;
+      saveData.issueToken = this.issueToken;
+
+      try {
+        this.axios.post('/api/reset-password', saveData, { headers: { 'Content-Type': 'application/json' } })
+          .then((res) => {
+            if (res.status === 200) {
+              this.storedConfirmToken(res.data);
+            }
+          }).catch((error) => {
+            console.log(error);
+            // eslint-disable-next-line no-alert
+            alert('잘못된 접근이거나 값이 올바르지 않아요.');
+          });
+      } catch (error) {
+        console.log(error);
       }
     },
   },

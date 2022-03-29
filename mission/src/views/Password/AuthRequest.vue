@@ -29,13 +29,14 @@ export default {
     this.$refs.inputEmail.focus();
   },
   methods: {
-    ...mapMutations('AuthStorage', ['storedAuthData']),
+    ...mapMutations('AuthStorage', ['storedAuthData', 'storedEmail']),
     async enterNext() {
       try {
         const res = await this.axios.get(`/api/reset-password?email=${this.inputEmail}`, { headers: { 'Content-Type': 'application/json' } });
 
         if (res.status === 200) {
           this.storedAuthData(res.data);
+          this.storedEmail(this.inputEmail);
           this.$router.push({ name: 'AuthConfirm' });
         }
       } catch (error) {
