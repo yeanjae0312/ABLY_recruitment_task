@@ -21,6 +21,11 @@ const routes = [
     name: 'AuthConfirm',
     component: () => import('@/views/Password/AuthConfirm.vue'),
   },
+  {
+    path: '/changePassword',
+    name: 'ChangePassword',
+    component: () => import('@/views/Password/ChangePassword.vue'),
+  },
 ];
 
 const router = createRouter({

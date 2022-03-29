@@ -76,6 +76,13 @@ export default {
           .then((res) => {
             if (res.status === 200) {
               this.storedConfirmToken(res.data);
+
+              if (this.totalTime > 0) {
+                this.$router.push({ name: 'ChangePassword' });
+              } else {
+                // eslint-disable-next-line no-alert
+                alert('인증 만료 시간이 지났어요.');
+              }
             }
           }).catch((error) => {
             console.log(error);
