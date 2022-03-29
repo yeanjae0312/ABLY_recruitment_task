@@ -81,9 +81,11 @@ export default {
               this.logout();
             }
           }).catch((error) => {
+            // eslint-disable-next-line no-alert
+            alert('로그아웃에 실패하였습니다.');
             if (error.response.status === 404) {
               console.log(error);
-            } else if (error.response.status === 401) {
+            } else if (error.response.status === 400) {
               console.log(error);
             } else if (error.response.status === 500) {
               console.log(error);
