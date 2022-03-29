@@ -98,6 +98,12 @@ export default {
 </script>
 
 <style scoped>
+.authConfirm {
+  width: 100%;
+  padding: 0 var(--paddingSide);
+  box-sizing: border-box;
+}
+
 .auth-confirm-form {
   margin-top: 50px;
 }

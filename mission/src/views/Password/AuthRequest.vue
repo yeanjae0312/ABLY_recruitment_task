@@ -55,6 +55,12 @@ export default {
 </script>
 
 <style scoped>
+.authRequest {
+  width: 100%;
+  padding: 0 var(--paddingSide);
+  box-sizing: border-box;
+}
+
 .auth-request-form {
   margin-top: 50px;
 }
