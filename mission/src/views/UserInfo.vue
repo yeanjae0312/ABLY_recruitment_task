@@ -12,7 +12,7 @@
       <span v-if="isLoading" class="loading">Loading...</span>
     </div>
     <div class="common-btn-wrap">
-      <button class="common-btn" data-test="logout-btn">로그아웃</button>
+      <button class="common-btn" @click="isLogout" data-test="logout-btn">로그아웃</button>
     </div>
   </div>
 </template>
@@ -42,7 +42,7 @@ export default {
     ...mapState('LoginStorage', ['accessToken']),
   },
   methods: {
-    ...mapMutations('LoginStorage', ['loginCheck']),
+    ...mapMutations('LoginStorage', ['loginCheck', 'logout']),
     async getUserInfo() {
       const HOST = 'https://ably-frontend-assignment-server.vercel.app';
       const JWT = this.accessToken;
@@ -60,6 +60,39 @@ export default {
       } catch (error) {
         console.log(error);
         this.isLoading = false;
+      }
+    },
+    isLogout() {
+      // eslint-disable-next-line no-alert
+      const isLogout = window.confirm('로그아웃 하시겠습니까?');
+
+      if (isLogout) {
+        this.doLogout();
+      }
+    },
+    doLogout() {
+      const HOST = 'https://ably-frontend-assignment-server.vercel.app';
+      const JWT = this.accessToken;
+
+      try {
+        this.axios.post(`${HOST}/api/logout`, this.accessToken, { headers: { Authorization: `Bearer ${JWT}` } })
+          .then((res) => {
+            if (res.status === 200) {
+              this.logout();
+            }
+          }).catch((error) => {
+            if (error.response.status === 404) {
+              console.log(error);
+            } else if (error.response.status === 401) {
+              console.log(error);
+            } else if (error.response.status === 500) {
+              console.log(error);
+            }
+          });
+
+        this.isLoading = false;
+      } catch (error) {
+        console.log(error);
       }
     },
   },

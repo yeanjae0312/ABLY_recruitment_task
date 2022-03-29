@@ -4,8 +4,6 @@ const loginStore = {
   namespaced: true,
 
   state: {
-    loginEmail: '',
-    loginPw: '',
     accessToken: '',
   },
 
@@ -17,14 +15,16 @@ const loginStore = {
 
   mutations: {
     login(state, payload) {
-      state.loginEmail = payload.email;
-      state.loginPw = payload.password;
       state.accessToken = payload.accessToken;
     },
     loginCheck(state) {
       if (!state.accessToken) {
         router.push({ name: 'Login' }).catch((error) => { console.log(error); });
       }
+    },
+    logout(state) {
+      state.accessToken = '';
+      router.push({ name: 'Login' }).catch((error) => { console.log(error); });
     },
   },
 
