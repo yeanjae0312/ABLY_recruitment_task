@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <p class="title">로그인</p>
-    <div class="login-form">
+    <div class="common-form login-form">
       <label class="label">
         <span>Email : </span>
         <input type="text" ref="inputEmail" data-test="login-text-email"
@@ -87,35 +87,7 @@ export default {
   box-sizing: border-box;
 }
 
-.login-form {
+.common-form {
   margin-top: 50px;
-}
-
-.login-form .label {
-  --textWidth: 110px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-}
-
-.login-form .label:last-child {
-  margin-bottom: 0;
-}
-
-.login-form .label span {
-  width: var(--textWidth);
-  font-weight: bold;
-}
-
-.login-form .label input {
-  width: calc(100% - var(--textWidth));
-  border: solid 1px #ccc;
-  padding: 8px 12px;
-  border-radius: 10px;
-}
-
-.login-form .label input:focus {
-  outline-color: #fe3152;
 }
 </style>

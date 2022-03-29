@@ -20,6 +20,34 @@ html, body {
   font-weight: bold;
 }
 
+.common-form .label {
+  --textWidth: 110px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.common-form .label:last-child {
+  margin-bottom: 0;
+}
+
+.common-form .label span {
+  width: var(--textWidth);
+  font-weight: bold;
+}
+
+.common-form .label input {
+  width: calc(100% - var(--textWidth));
+  border: solid 1px #ccc;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.common-form .label input:focus {
+  outline-color: #fe3152;
+}
+
 .common-btn-wrap {
   display: flex;
   justify-content: center;
