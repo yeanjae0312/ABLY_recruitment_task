@@ -16,6 +16,11 @@ const routes = [
     name: 'AuthRequest',
     component: () => import('@/views/Password/AuthRequest.vue'),
   },
+  {
+    path: '/authConfirm',
+    name: 'AuthConfirm',
+    component: () => import('@/views/Password/AuthConfirm.vue'),
+  },
 ];
 
 const router = createRouter({
