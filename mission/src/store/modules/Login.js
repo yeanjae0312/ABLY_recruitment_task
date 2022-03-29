@@ -1,6 +1,8 @@
 import router from '@/router';
 
 const loginStore = {
+  namespaced: true,
+
   state: {
     loginEmail: '',
     loginPw: '',

@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
   name: 'Login',
   components: {
@@ -36,6 +38,7 @@ export default {
     this.$refs.inputEmail.focus();
   },
   methods: {
+    ...mapMutations('LoginStorage', ['login']),
     doLogin() {
       if (this.inputEmail === '') {
         // eslint-disable-next-line no-alert
@@ -56,7 +59,7 @@ export default {
         this.axios.post(`${HOST}/api/login`, JSON.stringify(saveData), { headers: { 'Content-Type': 'application/json' } })
           .then((res) => {
             if (res.status === 200) {
-              this.$store.commit('login', res.data);
+              this.login(res.data);
               // eslint-disable-next-line no-alert
               alert('회원정보가 맞습니다.');
               this.$router.push({ name: 'UserInfo' });
