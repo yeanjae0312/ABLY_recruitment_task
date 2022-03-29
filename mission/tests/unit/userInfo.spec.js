@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import UserInfo from '@/views/UserInfo.vue';
 
-describe('Login.vue', () => {
+describe('UserInfo.vue', () => {
   let wrapper;
 
   beforeEach(() => {
