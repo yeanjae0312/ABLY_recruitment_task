@@ -31,6 +31,15 @@ api 연동을 하기 위해 사용하였습니다. 브라우저 호환성이 뛰
 ├─ node_modules
 ├─ public
 ├─ src
+│  ├─ api
+│  │  ├─ clients
+│  │  │  ├─ AxiosClient.js
+│  │  └─ repositories
+│  │     ├─ ChangePwRepository.js
+│  │     ├─ LoginRepository.js
+│  │     ├─ LogoutRepository.js
+│  │     ├─ RepositoryFactory.js
+│  │     └─ UserInfoRepository.js
 │  ├─ assets
 │  │  └─ css
 │  ├─ components
@@ -55,6 +64,7 @@ api 연동을 하기 위해 사용하였습니다. 브라우저 호환성이 뛰
 </details>
 
 `mission` 폴더를 생성해서 작업만 할 폴더를 생성해 주었습니다. 추후에 참고문서나 코딩작업과 관련되지 않은 폴더도 생성될 수 있기 때문입니다. <br><br>
+`mission > src > api` 폴더에서는 api 연동을 레퍼지토리 패턴을 활용하여 구현하였습니다.  <br><br>
 `mission > src > router` 폴더에서는 라우터를 동작하기 위한 코드들을 작성하였습니다. <br><br>
 `mission > src > store` 폴더에서는 상태를 전역적으로 관리하기 위한 vuex관련 작업을 하였습니다. <br><br>
 `mission > src > views` 폴더에는 유저들에게 보여지는 페이지를 구분해서 생성하였습니다.
@@ -133,12 +143,14 @@ api를 불러오는 동안 로딩화면이 보여지도록 작업했습니다. <
 인증 만료시간이 초과되면 초과되었다는 알림창을 추가했습니다. <br><br>
 <img src="https://user-images.githubusercontent.com/32696209/160770318-ef242b94-853e-40b4-8423-0c900547e4f2.png" width="400"/>
 
+### 💡 api 연동시 레퍼지토리 패턴 활용
+api연동을 할 때 레퍼지토리 패턴을 활용하여 데이터 로직을 분리시키고 유지보수에 좋게 적용시켰습니다.
+
 <br>
 
 ## 📌 7. 아쉬운 점
 `Typescript`로 구현을 해보고 싶었지만 시간과 능력이 부족해 `Javascript`로 구현한 점이 매우 아쉽습니다. 더욱 공부해야 겠다는 다짐을 한 계기가 되었습니다. <br><br>
 TDD방법론으로 프로젝트를 구현하고 싶었지만 시간과 능력 부족으로 이것 역시 못한 부분이 아쉽습니다. <br><br>
-`api`를 연동하기 위해 `axios`를 사용했는데 `axios`의 레퍼지토리 패턴을 사용하려고 노력하였으나 하지 못한 점이 아쉽습니다. <br><br>
 인증시간을 새로고침 했을 때 다시 리셋되는 처리를 수정하고 싶었으나 못한 점이 아쉽습니다.
 
 <br>
