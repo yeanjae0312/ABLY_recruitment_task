@@ -20,6 +20,9 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
+import RepositoryFactory from '@/api/repositories/RepositoryFactory';
+
+const ChangePwRepository = RepositoryFactory.get('changePw');
 
 export default {
   name: 'AuthConfirm',
@@ -71,24 +74,25 @@ export default {
       saveData.authCode = this.inputCode;
       saveData.issueToken = this.issueToken;
 
-      try {
-        this.axios.post('/api/reset-password', saveData, { headers: { 'Content-Type': 'application/json' } })
-          .then((res) => {
-            if (res.status === 200) {
-              this.storedConfirmToken(res.data);
+      const data = ChangePwRepository.create(saveData);
 
-              if (this.totalTime > 0) {
-                this.$router.push({ name: 'ChangePassword' });
-              } else {
-                // eslint-disable-next-line no-alert
-                alert('인증 만료 시간이 지났어요.');
-              }
+      try {
+        data.then((res) => {
+          if (res.status === 200) {
+            this.storedConfirmToken(res.data);
+
+            if (this.totalTime > 0) {
+              this.$router.push({ name: 'ChangePassword' });
+            } else {
+              // eslint-disable-next-line no-alert
+              alert('인증 만료 시간이 지났어요.');
             }
-          }).catch((error) => {
-            console.log(error);
-            // eslint-disable-next-line no-alert
-            alert('잘못된 접근이거나 값이 올바르지 않아요.');
-          });
+          }
+        }).catch((error) => {
+          console.log(error);
+          // eslint-disable-next-line no-alert
+          alert('잘못된 접근이거나 값이 올바르지 않아요.');
+        });
       } catch (error) {
         console.log(error);
       }

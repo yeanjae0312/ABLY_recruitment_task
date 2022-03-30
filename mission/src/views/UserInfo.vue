@@ -19,6 +19,10 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
+import RepositoryFactory from '@/api/repositories/RepositoryFactory';
+
+const LogoutRepository = RepositoryFactory.get('logout');
+const UserInfoRepository = RepositoryFactory.get('userInfo');
 
 export default {
   name: 'UserInfo',
@@ -43,22 +47,25 @@ export default {
   },
   methods: {
     ...mapMutations('LoginStorage', ['loginCheck', 'logout']),
-    async getUserInfo() {
+    getUserInfo() {
       const JWT = this.accessToken;
 
+      const data = UserInfoRepository.get(JWT);
+
       try {
-        const res = await this.axios.get('/api/user', { headers: { Authorization: `Bearer ${JWT}` } });
-
-        if (res.status === 200) {
-          this.userProfile = res.data.profileImage;
-          this.userName = res.data.name;
-          this.userEmail = res.data.email;
-        }
-
-        this.isLoading = false;
+        data.then((res) => {
+          if (res.status === 200) {
+            this.userProfile = res.data.profileImage;
+            this.userName = res.data.name;
+            this.userEmail = res.data.email;
+          }
+          this.isLoading = false;
+        }).catch((error) => {
+          console.log(error);
+          this.isLoading = false;
+        });
       } catch (error) {
         console.log(error);
-        this.isLoading = false;
       }
     },
     isLogout() {
@@ -72,23 +79,24 @@ export default {
     doLogout() {
       const JWT = this.accessToken;
 
+      const data = LogoutRepository.create(JWT);
+
       try {
-        this.axios.post('/api/logout', this.accessToken, { headers: { Authorization: `Bearer ${JWT}` } })
-          .then((res) => {
-            if (res.status === 200) {
-              this.logout();
-            }
-          }).catch((error) => {
-            // eslint-disable-next-line no-alert
-            alert('로그아웃에 실패하였습니다.');
-            if (error.response.status === 404) {
-              console.log(error);
-            } else if (error.response.status === 400) {
-              console.log(error);
-            } else if (error.response.status === 500) {
-              console.log(error);
-            }
-          });
+        data.then((res) => {
+          if (res.status === 200) {
+            this.logout();
+          }
+        }).catch((error) => {
+          // eslint-disable-next-line no-alert
+          alert('로그아웃에 실패하였습니다.');
+          if (error.response.status === 404) {
+            console.log(error);
+          } else if (error.response.status === 400) {
+            console.log(error);
+          } else if (error.response.status === 500) {
+            console.log(error);
+          }
+        });
 
         this.isLoading = false;
       } catch (error) {

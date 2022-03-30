@@ -23,6 +23,9 @@
 
 <script>
 import { mapMutations } from 'vuex';
+import RepositoryFactory from '@/api/repositories/RepositoryFactory';
+
+const LoginRepository = RepositoryFactory.get('login');
 
 export default {
   name: 'Login',
@@ -54,23 +57,24 @@ export default {
       saveData.email = this.inputEmail;
       saveData.password = this.inputPw;
 
+      const data = LoginRepository.create(saveData);
+
       try {
-        this.axios.post('/api/login', JSON.stringify(saveData), { headers: { 'Content-Type': 'application/json' } })
-          .then((res) => {
-            if (res.status === 200) {
-              this.login(res.data);
-              // eslint-disable-next-line no-alert
-              alert('회원정보가 맞습니다.');
-              this.$router.push({ name: 'UserInfo' });
-            }
-          }).catch((error) => {
-            if (error.response.status === 404) {
+        data.then((res) => {
+          if (res.status === 200) {
+            this.login(res.data);
             // eslint-disable-next-line no-alert
-              alert('회원정보가 틀립니다. 다시 입력해 주세요.');
-              this.$refs.inputEmail.value = '';
-              this.$refs.inputPw.value = '';
-            }
-          });
+            alert('회원정보가 맞습니다.');
+            this.$router.push({ name: 'UserInfo' });
+          }
+        }).catch((error) => {
+          if (error.response.status === 404) {
+            // eslint-disable-next-line no-alert
+            alert('회원정보가 틀립니다. 다시 입력해 주세요.');
+            this.$refs.inputEmail.value = '';
+            this.$refs.inputPw.value = '';
+          }
+        });
       } catch (error) {
         console.error(error);
       }
